@@ -458,55 +458,53 @@ public class frmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEqualActionPerformed
-        // TODO add your handling code here:
-        BalancedParenthensies b = new BalancedParenthensies();
-        Calculate c = new Calculate();
-        ReInToPre pre = new ReInToPre();
-        String text = LBLResult.getText();
-        final JFrame parent = new JFrame();
-        
-        if (!"".equals(text)){
-            if (b.balancedParenthensies(text) == true) {
-        
-                Scanner input = new Scanner(System.in);
-                for (int i=0 ; i<text.length() ; i++){
 
-                    String operator = "";
-                    int count = 0;
-                    while (i<text.length() && Character.isLetter(text.charAt(i))) {
+         // TODO add your handling code here:
+    BalancedParenthensies b = new BalancedParenthensies();
+    Calculate c = new Calculate();
+    ReInToPre pre = new ReInToPre();
+    String text = LBLResult.getText();
+    final JFrame parent = new JFrame();
 
-                        operator += String.valueOf(text.charAt(i));
+    if (!"".equals(text)) {
+        if (b.balancedParenthensies(text)) {
 
-                        i++;
-                        count++;
-                    }
+            Scanner input = new Scanner(System.in);
+            for (int i = 0; i < text.length(); i++) {
 
-                    if (count==1){
-                        i--;
+                String operator = "";
+                int count = 0;
+                while (i < text.length() && Character.isLetter(text.charAt(i))) {
 
+                    operator += String.valueOf(text.charAt(i));
 
-                        String d = JOptionPane.showInputDialog(parent,"Inter a number as " + String.valueOf(text.charAt(i)) , null);
+                    i++;
+                    count++;
+                }
 
-                        text = text.replaceAll(String.valueOf(text.charAt(i)), d);
+                if (count == 1) {
+                    i--;
+
+                    char currentChar = text.charAt(i);
+
+                    // Tambahkan kondisi untuk mengecek jika karakter adalah 'a'
+                    if (currentChar != 'a') {
+                        String d = JOptionPane.showInputDialog(parent, "Enter a number as " + String.valueOf(currentChar), null);
+                        text = text.replaceAll(String.valueOf(currentChar), d);
                         System.out.println(text);
                         System.out.println(text.length());
-
                     }
                 }
-        
-        
+            }
 
-                InfixText.setText("Infix = " + text);
-                PostfixText.setText(c.InToPoText(text));
-                PrefixText.setText(pre.InToPoText(text));
-                LBLResult.setText(c.Evaluation(text, rdbDegree.isSelected()));
-            }
-            else {
-                InfixText.setText("Incorrect parentheses.");
-            }
+            InfixText.setText("Infix = " + text);
+            PostfixText.setText(c.InToPoText(text));
+            PrefixText.setText(pre.InToPoText(text));
+            LBLResult.setText(c.Evaluation(text, rdbDegree.isSelected()));
+        } else {
+            InfixText.setText("Incorrect parentheses.");
         }
-
-
+    }
     }//GEN-LAST:event_btnEqualActionPerformed
 
     private void btnPointVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_btnPointVetoableChange
